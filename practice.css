@@ -1,0 +1,30 @@
+.parent{
+    border: 2px solid gray;
+    background-color: aquamarine;
+    width: 400px;
+    height: 400px;
+    margin-top: 2.5em;
+    position: relative; 
+    margin: auto;
+    top: 40px;
+}
+/* .child{
+    border: 2px solid gray;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    margin: -40px;
+}
+.child2{
+    border: 2px solid gray;
+    background-color: blue;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 0;
+    top: 45%;
+    margin: -40px;
+} */
