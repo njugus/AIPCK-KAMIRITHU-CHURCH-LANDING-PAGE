@@ -2,10 +2,497 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>AIPCK KAMIRITHU YOUTH CHURCH</title>
-    <link rel="stylesheet" href="/index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ----- GLOBAL & RESET ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-padding-top: 130px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fefefe;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        .web-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-family: 'Josefin Sans', sans-serif;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1001;
+            background-color: white;
+            color: black;
+            padding: 12px 5%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            gap: 16px;
+        }
+
+        .main-header {
+            font-family: 'Rye', cursive;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #ff0000, #ff8800, #ffcc00, #00ff00, #00ffcc, #0000ff, #8800ff, #ff00ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            line-height: 1.3;
+            letter-spacing: 1px;
+        }
+
+        /* desktop navigation */
+        .list-div {
+            position: relative;
+        }
+
+        .navbar {
+            display: flex;
+            flex-direction: row;
+            list-style: none;
+            gap: 28px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .item {
+            background-color: orange;
+            padding: 8px 18px;
+            border-radius: 40px;
+            transition: transform 0.25s ease, background-color 0.25s ease;
+            font-weight: 600;
+        }
+
+        .item:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        /* HAMBURGER ICON */
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #e67e22;
+            transition: transform 0.2s;
+            z-index: 1002;
+        }
+
+        .hamburger:hover {
+            transform: scale(1.05);
+        }
+
+        /* ----- MOBILE STYLES (≤ 768px) ----- */
+        @media screen and (max-width: 768px) {
+            html {
+                scroll-padding-top: 110px;
+            }
+
+            .web-header {
+                padding: 12px 20px;
+            }
+
+            .navbar {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;  /* appears right below the header */
+                left: 0;
+                width: 100%;
+                background: white;
+                border-top: 1px solid #eee;
+                box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+                border-radius: 0 0 20px 20px;
+                padding: 20px 0;
+                gap: 16px;
+                z-index: 1000;
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .item {
+                background: transparent;
+                width: 90%;
+                margin: 0 auto;
+                text-align: center;
+                border-radius: 40px;
+                background-color: #ff8c00;
+                padding: 12px 0;
+            }
+
+            .item a {
+                color: white;
+                font-size: 1.2rem;
+                display: block;
+                width: 100%;
+            }
+
+            .item:hover {
+                background-color: #e67e22;
+                transform: scale(1.02);
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* HERO SECTION */
+        .hero {
+            margin-top: 85px;
+            position: relative;
+            width: 100%;
+            min-height: 500px;
+            height: auto;
+            background: url("/AIPCK YOUTH.jpg") no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 0;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 1;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 20px;
+            max-width: 85%;
+            backdrop-filter: blur(2px);
+        }
+
+        .hero-heading {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            margin-bottom: 20px;
+        }
+
+        .bible-verse {
+            font-family: 'Josefin Sans', sans-serif;
+            margin: 20px 0;
+        }
+
+        .cta-link {
+            display: inline-block;
+            background-color: orange;
+            padding: 12px 28px;
+            border-radius: 50px;
+            transition: 0.25s;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .cta-link:hover {
+            background-color: #e67e22;
+            transform: scale(1.03);
+        }
+
+        .cta-link span {
+            color: white;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            margin-top: 3rem;
+            padding: 20px;
+        }
+
+        .about-heading {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 20px;
+            background: #faf9ff;
+            border-radius: 24px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 280px;
+            max-width: 500px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .youth-about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-description {
+            flex: 1;
+            background: #f5f0ff;
+            padding: 24px;
+            border-radius: 20px;
+            font-family: 'Josefin Sans', sans-serif;
+            line-height: 1.6;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+        }
+
+        .about-description h2 {
+            margin-bottom: 12px;
+            color: #b45f06;
+        }
+
+        /* GALLERY SLIDESHOW */
+        .main-gallery {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            margin: 40px 0 20px;
+        }
+
+        .slideshow-container {
+            max-width: 800px;
+            position: relative;
+            margin: 20px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            max-height: 500px;
+        }
+
+        .fade {
+            animation: fade 0.8s ease;
+        }
+
+        @keyframes fade {
+            from {opacity: 0.4;}
+            to {opacity: 1;}
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 14px;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            transition: 0.3s;
+            user-select: none;
+            margin: 0 12px;
+        }
+        .prev { left: 0; }
+        .next { right: 0; }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* CONTACT SECTION */
+        .contact-heading {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            margin: 50px 0 20px;
+        }
+
+        .contact-us {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px 30px;
+            background-color: #f8f3ff;
+            border-radius: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .contact-form-container {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .contact-form-container h2 {
+            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .contact-form label {
+            font-weight: 600;
+            margin: 10px 0 5px;
+            display: block;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-form button {
+            background-color: orange;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .contact-form button:hover {
+            background-color: #e67e22;
+            transform: scale(1.02);
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 350px;
+            border-radius: 24px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+
+        .map {
+            max-width: 550px;
+            width: 100%;
+        }
+
+        /* FOOTER */
+        .main-footer {
+            background-color: #1e2a2e;
+            color: #f0f0f0;
+            padding: 40px 20px 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: start;
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            max-width: 280px;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .footer-links ul, .social-icons {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li, .social-icons li {
+            margin: 10px 0;
+            cursor: pointer;
+            color: #ccc;
+            transition: 0.2s;
+        }
+        .footer-links li:hover {
+            color: #ffa500;
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 18px;
+        }
+        .social-icons a {
+            color: #ddd;
+            font-size: 28px;
+            transition: 0.2s;
+        }
+        .social-icons a:hover {
+            color: #ffa500;
+            transform: scale(1.1);
+        }
+
+        .footer-credit {
+            text-align: center;
+            padding: 16px;
+            background-color: #111;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 680px) {
+            .hero {
+                margin-top: 75px;
+            }
+            .about-description {
+                font-size: 0.95rem;
+            }
+            .contact-us {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="web-header">
@@ -13,57 +500,53 @@
             AIPCK KAMIRITHU<br/>
             CHURCH YOUTH 
         </div>
-        <nav class="list-div">
-            <ul class="navbar">
-                <li class="item"><a href="#" style="text-decoration: none; color : black">Home</li></a></li>
-                <li class="item"><a href="#about-link" style="text-decoration: none; color : black">About Us</a></li>
-                <li class="item"><a href="#gallery" style="text-decoration: none; color : black">Gallery</a></li>
-                <li class="item"><a href="#contact" style="text-decoration: none; color : black">Contact Us</a></li>
+        <div class="list-div">
+            <ul class="navbar" id="navbarMenu">
+                <li class="item"><a href="#">Home</a></li>
+                <li class="item"><a href="#about-link">About Us</a></li>
+                <li class="item"><a href="#gallery">Gallery</a></li>
+                <li class="item"><a href="#contact">Contact Us</a></li>
             </ul>
-
-            <div class="hamburger" id="hamburger">
+            <div class="hamburger" id="hamburgerIcon">
                 <i class="fas fa-bars"></i>
             </div>
-        </nav>
+        </div>
     </header>
 
     <section class="hero">
         <div class="hero-text">
-        <h1 class="hero-heading">
-            Welcome to AIPCK KAMIRITHU CHURCH YOUTH WEBPAGE
-        </h1>
-        <div class="bible-verse">
-            <h2 class="verse-heading">Psalm 133:1 (NIV):</h2>
-            <p>
-                "How good and pleasant it is when God's people live together in unity!"
-            </p>
-        </div>
-        <div class="cta-link">
-            <a href="#gallery" style="text-decoration: none;"><span>Our Gallery</span></a>
-        </div>
+            <h1 class="hero-heading">
+                Welcome to AIPCK KAMIRITHU CHURCH YOUTH WEBPAGE
+            </h1>
+            <div class="bible-verse">
+                <h2 class="verse-heading">Psalm 133:1 (NIV):</h2>
+                <p>"How good and pleasant it is when God's people live together in unity!"</p>
+            </div>
+            <div class="cta-link">
+                <a href="#gallery" style="text-decoration: none;"><span>Our Gallery</span></a>
+            </div>
         </div>
     </section>
 
-    
     <section class="about" id="about-link">
-        <h2 class="about-heading" >About Us</h2>
+        <h2 class="about-heading">About Us</h2>
         <div class="about-details">
-        <div class="about-image">
-            <img src="/YOUTH 2.jpg" alt="youth-image" class="youth-about-image" />
-        </div>
-        <div class="about-description">
-            <h2>Who Are We?</h2>
-            <p>
-                We are the AIPCK Kamirithu Church Youth, a vibrant group from AIPCK Kamirithu Church located in Kamirithu, Limuru, Kiambu County. As Christ's Ambassadors, we dedicate ourselves to serving the Almighty God through various activities. Our fellowship includes worship, singing, dancing, and engaging in fun events like Youth Fun Day. We also actively participate in fundraising efforts to support projects that 
-                foster the growth and advancement of our church community.
-Our commitment to serve Him is unwavering, and we meet every Sunday after service 
-to share in this mission. Everyone is welcome to join us!
-
-Join us and be part of a community where faith and fellowship flourish together!
-            </p>
-        </div>
+            <div class="about-image">
+                <img src="/YOUTH 2.jpg" alt="youth-image" class="youth-about-image" />
+            </div>
+            <div class="about-description">
+                <h2>Who Are We?</h2>
+                <p>
+                    We are the AIPCK Kamirithu Church Youth, a vibrant group from AIPCK Kamirithu Church located in Kamirithu, Limuru, Kiambu County. As Christ's Ambassadors, we dedicate ourselves to serving the Almighty God through various activities. Our fellowship includes worship, singing, dancing, and engaging in fun events like Youth Fun Day. We also actively participate in fundraising efforts to support projects that 
+                    foster the growth and advancement of our church community.
+                    Our commitment to serve Him is unwavering, and we meet every Sunday after service 
+                    to share in this mission. Everyone is welcome to join us!
+                    Join us and be part of a community where faith and fellowship flourish together!
+                </p>
+            </div>
         </div>
     </section>
+
     <h2 class="main-gallery">Gallery</h2>
     <div class="slideshow-container" id="gallery">
         <div class="slide fade">
@@ -78,36 +561,32 @@ Join us and be part of a community where faith and fellowship flourish together!
 
     <h2 class="contact-heading">How to reach Us</h2>
     <section class="contact-us" id="contact">
-    <div class="contact-form-container">
-        <h2>Contact Us</h2>
-        <form action="#" method="post" class="contact-form">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-            
-            <button type="submit">Send Message</button>
-        </form>
-    </div>
-    <section class="map">
-        <iframe class="map-embed-link" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7307.499862213774!2d36.623462505089876!3d-1.1141244561511614!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f27939b15bf5b%3A0xb0190e8d59da7756!2sAIPCK%20kamirithu!5e0!3m2!1sen!2ske!4v1722535275791!5m2!1sen!2ske" width="600" height="450" style="border:0;border-radius: 5px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </section>
+        <div class="contact-form-container">
+            <h2>Contact Us</h2>
+            <form action="#" method="post" class="contact-form" id="contactForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+        <div class="map">
+            <iframe class="map-embed-link" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7307.499862213774!2d36.623462505089876!3d-1.1141244561511614!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f27939b15bf5b%3A0xb0190e8d59da7756!2sAIPCK%20kamirithu!5e0!3m2!1sen!2ske!4v1722535275791!5m2!1sen!2ske" width="600" height="450" style="border:0;border-radius: 5px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </section>
 
     <footer class="main-footer">
         <div class="footer-text">
-            <p>
-                "We value fellowship, as Christ Jesus has called us to live in community with one another."
-            </p>
+            <p>"We value fellowship, as Christ Jesus has called us to live in community with one another."</p>
         </div>
         <div class="footer-links">
             <h3>Quick Links</h3>
             <ul>
-                <li id="/">Home</li>
-                <li id="home">About Us</li>
-                <li id="gallery">Gallery</li>
-                <li id="reach to us">Reach Us</li>
+                <li onclick="scrollToSection('#')">Home</li>
+                <li onclick="scrollToSection('#about-link')">About Us</li>
+                <li onclick="scrollToSection('#gallery')">Gallery</li>
+                <li onclick="scrollToSection('#contact')">Reach Us</li>
             </ul>
         </div>
         <div class="social-media">
@@ -119,8 +598,169 @@ Join us and be part of a community where faith and fellowship flourish together!
         </div>
     </footer>
     <div class="footer-credit">
-        Made with love by <a href="https://github.com/njugus" style="text-decoration: none;">Kelvin Njuguna</a> &middot; All Rights Reserved
+        Made with love by <a href="https://github.com/njugus" style="text-decoration: none; color: #ffa500;">Kelvin Njuguna</a> &middot; All Rights Reserved
     </div>
-    <script src="/index.js"></script>
+
+    <script>
+        // ---------- HAMBURGER MENU (FULL RESPONSIVE) ----------
+        const hamburger = document.getElementById('hamburgerIcon');
+        const navbar = document.getElementById('navbarMenu');
+
+        function toggleMenu() {
+            if (navbar) {
+                navbar.classList.toggle('active');
+                // Optional: change icon when open 
+                const icon = hamburger.querySelector('i');
+                if (navbar.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        }
+
+        function closeMenu() {
+            if (navbar && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                const icon = hamburger.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        if (hamburger) {
+            hamburger.addEventListener('click', toggleMenu);
+        }
+
+        // Auto close menu when clicking any nav link (smooth navigation)
+        const navLinks = document.querySelectorAll('.navbar a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Smooth scroll for anchor links
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = 100;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                }
+                closeMenu(); // close mobile menu after click
+            });
+        });
+
+        // Close menu if user clicks outside (only when menu is open on mobile)
+        document.addEventListener('click', function(event) {
+            const isInsideNav = navbar && navbar.contains(event.target);
+            const isHamburger = hamburger && hamburger.contains(event.target);
+            if (navbar && navbar.classList.contains('active') && !isInsideNav && !isHamburger) {
+                closeMenu();
+            }
+        });
+
+        // On window resize, if screen width > 768px and menu forced active, remove active class to reset display
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navbar && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                const icon = hamburger.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+
+        // ---------- GALLERY SLIDESHOW (fully functional) ----------
+        let slideIndex = 1;
+        let slides = document.getElementsByClassName("slide");
+        
+        function showSlides(n) {
+            if (!slides.length) return;
+            if (n > slides.length) slideIndex = 1;
+            if (n < 1) slideIndex = slides.length;
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            if (slides[slideIndex - 1]) {
+                slides[slideIndex - 1].style.display = "block";
+            }
+        }
+        
+        function changeSlide(n) {
+            slideIndex += n;
+            showSlides(slideIndex);
+        }
+        
+        // initial display
+        if (slides.length > 0) {
+            showSlides(slideIndex);
+        }
+        
+        // Optional: auto slide every 5 seconds only if user hasn't interacted? but keep simple
+        let autoInterval;
+        function startAutoSlide() {
+            autoInterval = setInterval(() => {
+                slideIndex++;
+                if (slideIndex > slides.length) slideIndex = 1;
+                showSlides(slideIndex);
+            }, 5000);
+        }
+        function stopAutoSlide() {
+            clearInterval(autoInterval);
+        }
+        if (slides.length > 0) {
+            startAutoSlide();
+            const container = document.querySelector('.slideshow-container');
+            if (container) {
+                container.addEventListener('mouseenter', stopAutoSlide);
+                container.addEventListener('mouseleave', startAutoSlide);
+            }
+        }
+        
+        // ---------- FOOTER QUICK LINKS SCROLL (helper) ----------
+        window.scrollToSection = function(selector) {
+            if (selector === '#') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const element = document.querySelector(selector);
+            if (element) {
+                const yOffset = -90;
+                const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+            closeMenu(); // close menu if open on mobile
+        };
+        
+        // also attach click handlers to quick links dynamically just in case (inline onclick already works)
+        // but ensure that the footer links close menu
+        const footerQuickLinks = document.querySelectorAll('.footer-links ul li');
+        footerQuickLinks.forEach(li => {
+            li.addEventListener('click', function() {
+                closeMenu();
+            });
+        });
+        
+        // Contact form simple alert (non-intrusive)
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert("Thank you for reaching out! We'll get back to you soon. 🙏");
+                contactForm.reset();
+            });
+        }
+        
+        // Prevent hero image loading issues: just safe fallback, but no error
+        console.log("✅ Responsive hamburger menu + slideshow ready!");
+    </script>
 </body>
 </html>
